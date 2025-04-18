@@ -68,8 +68,8 @@ namespace DLS.Simulation
 
 				for (int i = 0; i < State.BitCount; i++)
 				{
-					uint targetLogicLevel = source.State.GetBit(i);
-					uint currentLogicLevel = State.GetBit(i);
+					ulong targetLogicLevel = source.State.GetBit(i);
+					ulong currentLogicLevel = State.GetBit(i);
 
 					// Ignore disconnected input. Always accept input if current state is disconnected. Otherwise, choose randomly.
 					if (targetLogicLevel != PinState.LogicDisconnected && (currentLogicLevel == PinState.LogicDisconnected || acceptConflictingInput))

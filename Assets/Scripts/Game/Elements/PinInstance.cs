@@ -69,7 +69,7 @@ namespace DLS.Game
 
 		public Color GetStateCol(int bitIndex, bool hover = false)
 		{
-			uint state = State.GetBit(bitIndex);
+			ulong state = State.GetBit(bitIndex);
 			int colIndex = (int)Colour;
 
 			return state switch

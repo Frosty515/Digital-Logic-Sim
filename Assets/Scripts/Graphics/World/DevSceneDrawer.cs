@@ -223,12 +223,15 @@ namespace DLS.Graphics
 
 			int charCount;
 
- 			if (pin.pinValueDisplayMode != PinValueDisplayMode.HEX)
+ 			if (pin.pinValueDisplayMode == PinValueDisplayMode.SignedDecimal)
  			{
  				charCount = StringHelper.CreateIntegerStringNonAlloc(pin.decimalDisplayCharBuffer, pin.GetStateDecimalDisplayValue());
  			} 
-			
-			else
+			else if (pin.pinValueDisplayMode == PinValueDisplayMode.UnsignedDecimal)
+ 			{
+ 				charCount = StringHelper.CreateUnsignedIntegerStringNonAlloc(pin.decimalDisplayCharBuffer, pin.GetStateUnsignedDecimalDisplayValue());
+ 			}
+			else // HEX
  			{
  				charCount = StringHelper.CreateHexStringNonAlloc(pin.decimalDisplayCharBuffer, pin.GetStateDecimalDisplayValue());
  			}
@@ -480,7 +483,7 @@ namespace DLS.Graphics
 					if (useSim)
 					{
 						int address = y * 16 + x;
-						uint pixelState = simSource.InternalState[address];
+						uint pixelState = (uint)simSource.InternalState[address];
 						float red = Unpack4BitColChannel(pixelState);
 						float green = Unpack4BitColChannel(pixelState >> 4);
 						float blue = Unpack4BitColChannel(pixelState >> 8);
@@ -524,7 +527,7 @@ namespace DLS.Graphics
 					if (useSim)
 					{
 						int address = y * 16 + x;
-						uint pixelState = simSource.InternalState[address];
+						uint pixelState = (uint)simSource.InternalState[address];
 						float v = pixelState;
 						col = new Color(pixelState, pixelState, pixelState);
 					}

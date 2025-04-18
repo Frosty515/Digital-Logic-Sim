@@ -351,7 +351,7 @@ namespace DLS.Graphics
 				IDS_inputRow[i] = new UIHandle("ROM_rowInputField", i);
 				InputFieldState state = UI.GetInputFieldState(IDS_inputRow[i]);
 
-				string displayString = UIntToDisplayString(romChip.InternalData[i], dataDisplayMode, ActiveRomDataBitCount);
+				string displayString = UIntToDisplayString((uint)romChip.InternalData[i], dataDisplayMode, ActiveRomDataBitCount);
 				state.SetText(displayString, i == focusedRowIndex);
 
 				rowNumberStrings[i] = (i + ":").PadLeft(lineNumberPadLength + 1, '0');

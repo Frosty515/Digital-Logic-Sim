@@ -1,12 +1,14 @@
 {
   "ProjectName": "MainTest",
-  "DLSVersion_LastSaved": "2.1.0",
+  "DLSVersion_LastSaved": "2.1.1",
   "DLSVersion_EarliestCompatible": "2.0.0",
-  "CreationTime": "2025-03-14T18:23:30.404+01:00",
-  "LastSaveTime": "2025-04-16T11:50:38.991+02:00",
+  "CreationTime": "2025-03-15T03:23:30.404+10:00",
+  "LastSaveTime": "2025-04-19T08:27:47.356+10:00",
   "Prefs_MainPinNamesDisplayMode": 0,
   "Prefs_ChipPinNamesDisplayMode": 1,
   "Prefs_GridDisplayMode": 1,
+  "Prefs_Snapping": 0,
+  "Prefs_StraightWires": 0,
   "Prefs_SimPaused": false,
   "Prefs_SimTargetStepsPerSecond": 20000,
   "Prefs_SimStepsPerClockTick": 6,
@@ -75,6 +77,22 @@
     {
       "Name":"RAM-sync",
       "IsCollection":false
+    },
+    {
+      "Name":"BUS-64",
+      "IsCollection":false
+    },
+    {
+      "Name":"BUS",
+      "IsCollection":true
+    },
+    {
+      "Name":"BUS-32",
+      "IsCollection":false
+    },
+    {
+      "Name":"IN-64",
+      "IsCollection":false
     }
   ],
   "ChipCollections":[
@@ -119,7 +137,7 @@
       "Name":"TEST"
     },
     {
-      "Chips":["LED"],
+      "Chips":["LED","IN-16","OUT-16","IN-32","OUT-32","IN-64","OUT-64","16-1BIT","32-1BIT","64-1BIT","16-4BIT","32-4BIT","64-4BIT","16-8BIT","32-8BIT","64-8BIT","32-16BIT","64-16BIT","64-32BIT","1-16BIT","1-32BIT","1-64BIT","4-16BIT","4-32BIT","4-64BIT","8-16BIT","8-32BIT","8-64BIT","16-32BIT","16-64BIT","32-64BIT","BUS-16","BUS-32","BUS-64"],
       "IsToggledOpen":true,
       "Name":"OTHER"
     }

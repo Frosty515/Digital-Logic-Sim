@@ -10,7 +10,7 @@ namespace DLS.Game
 	public class DevPinInstance : IMoveable
 	{
 		public readonly PinBitCount BitCount;
-		public readonly char[] decimalDisplayCharBuffer = new char[16];
+		public readonly char[] decimalDisplayCharBuffer = new char[64]; // probably more than enough, just in case
 
 		// Size/Layout info
 		public readonly Vector2 faceDir;
@@ -41,6 +41,9 @@ namespace DLS.Game
 				PinBitCount.Bit1 => new Vector2Int(1, 1),
 				PinBitCount.Bit4 => new Vector2Int(2, 2),
 				PinBitCount.Bit8 => new Vector2Int(4, 2),
+				PinBitCount.Bit16 => new Vector2Int(4, 4),
+				PinBitCount.Bit32 => new Vector2Int(8, 4),
+				PinBitCount.Bit64 => new Vector2Int(8, 8),
 				_ => throw new Exception("Bit count not implemented")
 			};
 			StateGridSize = BitCount switch
@@ -57,7 +60,16 @@ namespace DLS.Game
 		{
 			get
 			{
-				int gridDst = BitCount is PinBitCount.Bit1 or PinBitCount.Bit4 ? 6 : 9;
+				int gridDst = BitCount switch 
+				{
+					PinBitCount.Bit1 => 6,
+					PinBitCount.Bit4 => 6,
+					PinBitCount.Bit8 => 9,
+					PinBitCount.Bit16 => 9,
+					PinBitCount.Bit32 => 16,
+					PinBitCount.Bit64 => 16,
+					_ => throw new Exception("Pin bit count not implemented")
+				};
 				return HandlePosition + faceDir * (GridSize * gridDst);
 			}
 		}
@@ -85,10 +97,10 @@ namespace DLS.Game
 			return Maths.BoxesOverlap(selectionCentre, selectionSize, selfBounds.Centre, selfBounds.Size);
 		}
 
-		public int GetStateDecimalDisplayValue()
+		public long GetStateDecimalDisplayValue()
 		{
-			uint rawValue = Pin.State.GetRawBits();
-			int displayValue = (int)rawValue;
+			ulong rawValue = Pin.State.GetRawBits();
+			long displayValue = (long)rawValue;
 
 			if (pinValueDisplayMode == PinValueDisplayMode.SignedDecimal)
 			{
@@ -96,6 +108,11 @@ namespace DLS.Game
 			}
 
 			return displayValue;
+		}
+
+		public ulong GetStateUnsignedDecimalDisplayValue()
+		{
+			return Pin.State.GetRawBits();
 		}
 
 		Bounds2D CreateBoundingBox(float pad)

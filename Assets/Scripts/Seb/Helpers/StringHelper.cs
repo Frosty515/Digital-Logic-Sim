@@ -12,7 +12,7 @@ namespace Seb.Helpers
 			return text.Split(newLineStrings, options);
 		}
 
-		public static int CreateIntegerStringNonAlloc(char[] charArray, int value)
+		public static int CreateIntegerStringNonAlloc(char[] charArray, long value)
 		{
 			bool isNegative = value < 0;
 			value = Math.Abs(value);
@@ -37,13 +37,28 @@ namespace Seb.Helpers
 			return charCount;
 		}
 
-		public static int CreateHexStringNonAlloc(char[] charArray, int value, bool upperCase = true)
+		public static int CreateUnsignedIntegerStringNonAlloc(char[] charArray, ulong value)
+		{
+			int digitCount = value == 0 ? 1 : (int)Math.Log10(value) + 1;
+			int charCount = digitCount;
+			int digitIndex = digitCount - 1;
+
+			do
+			{
+				charArray[digitIndex--] = (char)('0' + value % 10);
+				value /= 10;
+			} while (value > 0);
+
+			return charCount;
+		}
+
+		public static int CreateHexStringNonAlloc(char[] charArray, long value, bool upperCase = true)
 		{
 			const string hexDigits = "0123456789ABCDEF";
 			const string hexDigitsLower = "0123456789abcdef";
 
 			int charCount = 0;
-			uint uValue = (uint)value;
+			ulong uValue = (ulong)value;
 			do
 			{
 				charArray[charCount++] = (upperCase ? hexDigits : hexDigitsLower)[(int)(uValue & 0xF)];

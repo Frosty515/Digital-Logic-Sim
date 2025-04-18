@@ -11,7 +11,7 @@ namespace DLS.Simulation
 
 		// Some builtin chips, such as RAM, require an internal state for memory
 		// (can also be used for other arbitrary chip-specific data)
-		public readonly uint[] InternalState = Array.Empty<uint>();
+		public readonly ulong[] InternalState = Array.Empty<ulong>();
 		public readonly bool IsBuiltin;
 		public SimPin[] InputPins = Array.Empty<SimPin>();
 		public int numConnectedInputs;
@@ -58,16 +58,16 @@ namespace DLS.Simulation
 			if (ChipType is ChipType.DisplayRGB)
 			{
 				// first 256 bits = display buffer, next 256 bits = back buffer, last bit = clock state (to allow edge-trigger behaviour)
-				InternalState = new uint[addressSize_8Bit * 2 + 1];
+				InternalState = new ulong[addressSize_8Bit * 2 + 1];
 			}
 			else if (ChipType is ChipType.DisplayDot)
 			{
 				// first 256 bits = display buffer, next 256 bits = back buffer, last bit = clock state (to allow edge-trigger behaviour)
-				InternalState = new uint[addressSize_8Bit * 2 + 1];
+				InternalState = new ulong[addressSize_8Bit * 2 + 1];
 			}
 			else if (ChipType is ChipType.dev_Ram_8Bit)
 			{
-				InternalState = new uint[addressSize_8Bit + 1]; // +1 for clock state (to allow edge-trigger behaviour)
+				InternalState = new ulong[addressSize_8Bit + 1]; // +1 for clock state (to allow edge-trigger behaviour)
 
 				// Initialize memory contents to random state
 				Span<byte> randomBytes = stackalloc byte[4];
@@ -80,12 +80,12 @@ namespace DLS.Simulation
 			// Load in serialized persistent state (rom data, etc.)
 			else if (subChipDescription.InternalData is { Length: > 0 })
 			{
-				InternalState = new uint[subChipDescription.InternalData.Length];
+				InternalState = new ulong[subChipDescription.InternalData.Length];
 				UpdateInternalState(subChipDescription.InternalData);
 			}
 		}
 
-		public void UpdateInternalState(uint[] source) => Array.Copy(source, InternalState, InternalState.Length);
+		public void UpdateInternalState(ulong[] source) => Array.Copy(source, InternalState, InternalState.Length);
 
 
 		public void Sim_PropagateInputs()

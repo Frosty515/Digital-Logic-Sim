@@ -20,7 +20,7 @@ namespace DLS.Game
 		public readonly SubChipDescription InitialSubChipDesc;
 		public readonly PinInstance[] InputPins;
 
-		public readonly uint[] InternalData;
+		public readonly ulong[] InternalData;
 		public readonly bool IsBus;
 		public readonly Vector2 MinSize;
 
@@ -52,7 +52,7 @@ namespace DLS.Game
 			// Load internal data
 			if (subChipDesc.InternalData != null)
 			{
-				InternalData = new uint[subChipDesc.InternalData.Length];
+				InternalData = new ulong[subChipDesc.InternalData.Length];
 				Array.Copy(subChipDesc.InternalData, InternalData, InternalData.Length);
 
 				if (ChipType == ChipType.Key)
@@ -194,6 +194,10 @@ namespace DLS.Game
 				{
 					PinBitCount.Bit1 => 2,
 					PinBitCount.Bit4 => 3,
+					PinBitCount.Bit8 => 4,
+					PinBitCount.Bit16 => 8,
+					PinBitCount.Bit32 => 15,
+					PinBitCount.Bit64 => 28,
 					_ => 4
 				};
 
@@ -304,6 +308,9 @@ namespace DLS.Game
 				PinBitCount.Bit1 => DrawSettings.PinRadius * 2,
 				PinBitCount.Bit4 => DrawSettings.PinHeight4Bit,
 				PinBitCount.Bit8 => DrawSettings.PinHeight8Bit,
+				PinBitCount.Bit16 => DrawSettings.PinHeight16Bit,
+				PinBitCount.Bit32 => DrawSettings.PinHeight32Bit,
+				PinBitCount.Bit64 => DrawSettings.PinHeight64Bit,
 				_ => throw new Exception("Bit count not implemented " + bitCount)
 			};
 		}

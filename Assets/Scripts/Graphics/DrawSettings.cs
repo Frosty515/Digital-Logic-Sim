@@ -13,6 +13,9 @@ namespace DLS.Graphics
 		public const float PinHeight1Bit = 0.185f;
 		public const float PinHeight4Bit = 0.3f;
 		public const float PinHeight8Bit = 0.43f;
+		public const float PinHeight16Bit = 0.8f;
+		public const float PinHeight32Bit = 1.55f;
+		public const float PinHeight64Bit = 3.05f;
 		public const float PinRadius = PinHeight1Bit / 2;
 
 		public const FontType FontBold = FontType.JetbrainsMonoBold;
